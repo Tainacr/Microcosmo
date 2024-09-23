@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+initial-scale=1.0">
+    <title>Material</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css
+/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark
+bg-success">
+
+        <a class="navbar-brand" href="/">Microcosmo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark" href="/usuario/">Usuário</a>
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark" href="/questionario/">Questionário</a>
+
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark" href="/material/">Material</a>
+
+                </li>
+                <li class="nav-item">
+
+                    <a class="nav-link text-dark" href="/contato/">Contato</a>
+                </li>
+                <li class="nav-item">
+
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="mb-4">Tabela de Material</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Conteúdo</th>
+                    <th scope="col">Administrador</th>
+                    <th scope="col">Questionário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for material in material %}
+                <tr>
+                    <td>{{ material.nome }}</td>
+                    <td>{{ material.conteudo }}</td>
+                    <td>{{ material.administrador }}</td>
+                    <td>{{ material.questionario_do_material }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- Incluindo jQuery e Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/di
+        st / umd / popper.min.js ">
+    </script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/b
+ootstrap.min.js"></script>
+</body>
+
+</html>
