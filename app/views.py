@@ -19,12 +19,21 @@ class ViewQuestionario(View):
         questionario = Questionario.objects.all()
         return render(request, 'questionario.html', {'questionario':questionario})
 
-class ViewMaterial(View):
-    def get(self, request, *args, **kwargs):
-        material = Material.objects.all()
-        return render(request, 'material.html', {'material':material})
+def ViewMaterial(request):
+    tipo = request.GET.get('tipo')  # Obtém o parâmetro 'tipo'
+    material = None
+
+    if tipo:
+        material = Material.objects.filter(tipo=tipo).first()  # Filtra o material
+
+    return render(request, 'material.html', {'material': material})
 
 class ViewContato(View):
     def get(self, request, *args, **kwargs):
         contato = Contato.objects.all()
         return render(request, 'contato.html', {'contato':contato})
+
+class ViewMaterialAdicionado(View):
+    def get(self, request, *args, **kwargs):
+        materialadicionado = MaterialAdicionado.objects.all()
+        return render(request, 'material.html', {'materialadicionado': materialadicionado})

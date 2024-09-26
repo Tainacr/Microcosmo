@@ -24,6 +24,6 @@ urlpatterns = [
     path('', IndexView.as_view(), name='index'),
     path('usuario/', ViewUsuario.as_view(), name='usuario'),
     path('questionario/', ViewQuestionario.as_view(), name='questionario'),
-    path('material/', ViewMaterial.as_view(), name='material'),
+    path('material/', ViewMaterial, name='material'),
     path('contato/', ViewContato.as_view(), name='contato'),
 ]

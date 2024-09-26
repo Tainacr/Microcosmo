@@ -3,55 +3,122 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,
-initial-scale=1.0">
-    <title>Página Inicial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microcosmo</title>
+
     <!-- Incluindo Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.
-min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background-color: #E8F5E9; /* Verde claro */
+            color: #2E7D32; /* Cor do texto */
+        }
+
+        .navbar {
+            background-color: #1B5E20; /* Verde escuro */
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #E8F5E9; /* Cor da marca */
+        }
+
+        .navbar-nav .nav-link {
+            color: #E8F5E9 !important; /* Cor dos links da navbar */
+        }
+
+        h1 {
+            color: #1B5E20; /* Cor do título */
+            font-weight: bold;
+        }
+
+        .custom-card {
+            background-color: #A5D6A7; /* Verde claro para os cards */
+            border: none;
+            border-radius: 8px;
+            color: #1B5E20; /* Cor do texto dos cards */
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .card-text {
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-success {
+            background-color: #388E3C; /* Cor do botão */
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #2E7D32; /* Cor do botão ao passar o mouse */
+        }
+    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="/">Microcosmo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle
-navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/usuario/">Usuário</a>
+                    <a class="nav-link" href="/usuario/">Usuário</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/material/">Material</a>
+                    <a class="nav-link" href="/questionario/">Questionário</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/questionario/">Questionário</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/contato/">Contato</a>
+                    <a class="nav-link" href="/contato/">Contato</a>
                 </li>
             </ul>
         </div>
     </nav>
+
     <div class="container mt-5">
-        <div class="jumbotron text-center">
-            <h1 class="display-4">Olá, é bom te ver por aqui</h1>
-            <p class="lead">Esta é a página inicial do Microcosmo</p>
-            <p class="lead">Seja Bem Vindo(A)</p>
+        <div class="header text-center mb-4">
+            <h1 class="display-4">Conteúdo</h1>
+        </div>
+
+        <div class="card mb-3 custom-card">
+            <div class="card-body">
+                <h5 class="card-title">Unidade 1: Introdução à Teoria Microbiana da Doença</h5>
+                <p class="card-text">História da Microbiologia</p>
+                <p class="card-text">Fundamentos da Microbiologia</p>
+                <p class="card-text">Louis Pasteur, Robert Koch & Antonie van Leeuwenhoek</p>
+                <div class="text-right">
+                    <a href="/material/?tipo=introducao_micobiologia" class="btn btn-success">Iniciar</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 custom-card">
+            <div class="card-body">
+                <h5 class="card-title">Unidade 2: Estudos de Caso</h5>
+                <p class="card-text">Surtos Históricos</p>
+                <p class="card-text">Doenças Infecciosas Notáveis</p>
+                <div class="text-right">
+                    <a href="/material/?tipo=estudos_caso" class="btn btn-success">Iniciar</a>
+                </div>
+            </div>
         </div>
     </div>
+
     <!-- Incluindo jQuery e Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popp
-er.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.mi
-n.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

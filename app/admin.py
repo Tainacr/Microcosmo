@@ -8,5 +8,6 @@ admin.site.register(Perguntas)
 admin.site.register(Questionario)
 admin.site.register(Material)
 admin.site.register(Usuario)
+admin.site.register(MaterialAdicionado)
 
 
