@@ -53,19 +53,13 @@ class Questionario(models.Model):
     class Meta:
         verbose_name = "Questionário"
         verbose_name_plural = "Questionários"
-    
-class TipoMaterial (models.Model):
-    tipo = models.CharField(max_length=100, verbose_name="Tipo do material")
-
-    def __str__(self):
-        return self.tipo
 
 class Material(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Nome do material")
     conteudo = models.TextField(verbose_name="Conteúdo do material")  # Alterado para TextField para suportar conteúdo maior
     administrador = models.CharField(max_length=100, verbose_name="Administrador do material")
     questionario_do_material = models.ForeignKey(Questionario, on_delete=models.CASCADE)
-    tipo = models.ForeignKey(TipoMaterial, on_delete=models.CASCADE, null=True, blank=True)
+    tipo = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
             return f'{self.nome}, {self.conteudo},{self.questionario_do_material}'
