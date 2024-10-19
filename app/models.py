@@ -13,7 +13,7 @@ class Ocupacao(models.Model):
 
 class Usuario(models.Model):
     nome = models.CharField(max_length=100, verbose_name="Nome do usuário")
-    cpf = models.IntegerField(verbose_name="CPF do usuário")
+    cpf = models.CharField(max_length=100, verbose_name="CPF do usuário")
     email = models.CharField(max_length=100, verbose_name="E-mail do usuário")
     senha = models.CharField(max_length=100, verbose_name= "Senha do usuário")
     ocupacao_do_usuario = models.ForeignKey(Ocupacao, on_delete=models.CASCADE)
@@ -59,7 +59,7 @@ class Material(models.Model):
     conteudo = models.TextField(verbose_name="Conteúdo do material")  # Alterado para TextField para suportar conteúdo maior
     administrador = models.CharField(max_length=100, verbose_name="Administrador do material")
     questionario_do_material = models.ForeignKey(Questionario, on_delete=models.CASCADE)
-    tipo = models.CharField(max_length=100, null=True, blank=True)
+    # tipo = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
             return f'{self.nome}, {self.conteudo},{self.questionario_do_material}'

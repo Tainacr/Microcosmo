@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect,get_object_or_404
 from .models import *
 from django.views import View
 from django.contrib import messages
+from .forms import CadastroForm, LoginForm
+
 
 class IndexView(View):
     def get(self, request, *args, **kwargs):
@@ -25,11 +27,11 @@ class ViewQuestionario2(View):
         return render(request, 'questionario2.html', {'questionario2':questionario2})
 
 def ViewMaterial(request):
-    tipo = request.GET.get('tipo')  # Obtém o parâmetro 'tipo'
+    tipo = request.GET.get('tipo')
     material = None
 
     if tipo:
-        material = Material.objects.filter(tipo=tipo).first()  # Filtra o material
+        material = Material.objects.filter(tipo=tipo).first() 
 
     return render(request, 'material.html', {'material': material})
 
@@ -51,3 +53,33 @@ class ViewMaterialAdicionado(View):
     def get(self, request, *args, **kwargs):
         materialadicionado = MaterialAdicionado.objects.all()
         return render(request, 'material.html', {'materialadicionado': materialadicionado})
+
+def cadastro(request):
+    if request.method == 'POST':
+        form = CadastroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Cadastro realizado com sucesso!")
+            return redirect('login')  
+    else:
+        form = CadastroForm()
+    
+    return render(request, 'cadastro.html', {'form': form})
+
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            cpf = form.cleaned_data['user']
+            password = form.cleaned_data['password']
+            try:
+                usuario = Usuario.objects.get(cpf=cpf, senha=password)
+                messages.success(request, "Login realizado com sucesso!")
+                return redirect('index')  
+            except Usuario.DoesNotExist:
+                messages.error(request, "CPF ou senha inválidos.")
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form': form})
+
