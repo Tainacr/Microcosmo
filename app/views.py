@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404 
 from .models import *
 from django.views import View
 from django.contrib import messages
@@ -8,51 +8,67 @@ from .forms import CadastroForm, LoginForm
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'index.html')
-    def post(self, request):
-        pass
+
+
+class ViewQuestionario(View):
+    def get(self, request, questionario_id):
+        questionario = get_object_or_404(Questionario, id=questionario_id)
+        perguntas = questionario.perguntas.all()  # Obter todas as perguntas do questionário
+        return render(request, 'questionario.html', {'questionario': questionario, 'perguntas': perguntas})
+
+    def post(self, request, questionario_id):
+        questionario = get_object_or_404(Questionario, id=questionario_id)
+        perguntas = questionario.perguntas.all()
+
+        pontuacao = 0
+        for pergunta in perguntas:
+            resposta = request.POST.get(str(pergunta.id))
+            if resposta:  # Verifica se uma resposta foi fornecida
+                try:
+                    alternativa = Alternativa.objects.get(id=resposta)
+                    if alternativa.is_correta:  # Verifica se a alternativa é a correta
+                        pontuacao += 1
+                except Alternativa.DoesNotExist:
+                    continue  # Ignora caso a alternativa não exista
+
+        # Renderiza a página de resultado com a pontuação
+        return render(request, 'resultado.html', {'pontuacao': pontuacao, 'total': len(perguntas)})
+
+
+class ViewListaQuestionarios(View):
+    def get(self, request):
+        questionarios = Questionario.objects.all()
+        return render(request, 'lista_questionarios.html', {'questionarios': questionarios})
+
 
 class ViewUsuario(View):
     def get(self, request, *args, **kwargs):
-        usuario = Usuario.objects.all()
-        return render(request, 'usuario.html', {'usuario':usuario})
+        usuarios = Usuario.objects.all()
+        return render(request, 'usuario.html', {'usuarios': usuarios})
 
-class ViewQuestionario(View):
-    def get(self, request, *args, **kwargs):
-        questionario = Questionario.objects.all()
-        return render(request, 'questionario.html', {'questionario':questionario})
-
-class ViewQuestionario2(View):
-    def get(self, request, *args, **kwargs):
-        questionario2 = Questionario.objects.all()
-        return render(request, 'questionario2.html', {'questionario2':questionario2})
 
 def ViewMaterial(request):
-    tipo = request.GET.get('tipo')
-    material = None
-
-    if tipo:
-        material = Material.objects.filter(tipo=tipo).first() 
-
+    material = Material.objects.first()
     return render(request, 'material.html', {'material': material})
 
+
 def ViewMaterial2(request):
-    tipo = request.GET.get('tipo') 
-    material2 = None
-
-    if tipo:
-        material2 = Material.objects.filter(tipo=tipo).first() 
-
+    material2 = Material.objects.filter(id=2).first()
     return render(request, 'material2.html', {'material2': material2})
 
-class ViewContato(View):
-    def get(self, request, *args, **kwargs):
-        contato = Contato.objects.all()
-        return render(request, 'contato.html', {'contato':contato})
 
-class ViewMaterialAdicionado(View):
-    def get(self, request, *args, **kwargs):
-        materialadicionado = MaterialAdicionado.objects.all()
-        return render(request, 'material.html', {'materialadicionado': materialadicionado})
+def contato(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        texto = request.POST.get('texto')
+
+        Contato.objects.create(texto=f"Email: {email}\nMensagem: {texto}")
+
+        messages.success(request, 'Mensagem enviada com sucesso!')
+        return redirect('contato') 
+
+    return render(request, 'contato.html')
+
 
 def cadastro(request):
     if request.method == 'POST':
@@ -60,11 +76,12 @@ def cadastro(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Cadastro realizado com sucesso!")
-            return redirect('login')  
+            return redirect('login')
     else:
         form = CadastroForm()
-    
+
     return render(request, 'cadastro.html', {'form': form})
+
 
 def login(request):
     if request.method == 'POST':
@@ -75,11 +92,10 @@ def login(request):
             try:
                 usuario = Usuario.objects.get(cpf=cpf, senha=password)
                 messages.success(request, "Login realizado com sucesso!")
-                return redirect('index')  
+                return redirect('index')
             except Usuario.DoesNotExist:
                 messages.error(request, "CPF ou senha inválidos.")
     else:
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
-

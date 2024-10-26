@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado do Questionário</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Resultado do Questionário</h2>
+        <p>Sua pontuação: <strong>{{ pontuacao }}</strong> de <strong>{{ total }}</strong></p>
+        <a href="{% url 'index' %}" class="btn btn-primary">Voltar ao Início</a>
+    </div>
+</body>
+</html>

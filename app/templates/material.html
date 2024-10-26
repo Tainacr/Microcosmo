@@ -1,10 +1,9 @@
 <!DOCTYPE html> 
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material de Estudo</title>
+    <title>{{ material.titulo }}</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -19,7 +18,6 @@
 
         .navbar-brand, .nav-link {
             color: #E8F5E9 !important;
-            
         }
         
         .navbar-brand {
@@ -33,7 +31,7 @@
         }
 
         .content-section {
-            background-color: #A5D6A7;
+            background-color: #c3f1c3;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
@@ -49,13 +47,12 @@
             background-color: #2E7D32;
         }
 
-            p{
-                color:#2e7233;
-                font-weight: 500;
-            }
+        p {
+            color:#2e7233;
+            font-weight: 500;
+        }
     </style>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <a class="navbar-brand" href="/">Microcosmo</a>
@@ -69,18 +66,13 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/usuario/">Usuário</a>
-                </li>
-              
+            
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/contato/">Contato</a>
                 </li>
-                
                 <li class="nav-item">
                     <a class="nav-link" href="/cadastro/">Cadastro</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/login/">Login</a>
                 </li>
@@ -89,26 +81,17 @@
     </nav>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Material: Introdução à Microbiologia</h2>
+        <h2 class="mb-4">{{ material.titulo }}</h2>
 
         <div class="content-section">
             <h3>Conteúdo</h3>
-            <p>
-                A microbiologia é o estudo de organismos microscópicos, que incluem bactérias, vírus, fungos e protozoários. 
-                Esses organismos desempenham papéis essenciais em ecossistemas, saúde e indústria. 
-                O conhecimento sobre microbiologia é fundamental para entender doenças infecciosas, processos biológicos e aplicações biotecnológicas.
-            </p>
-            <p>
-                A introdução à microbiologia abrange tópicos como a história da microbiologia, 
-                a estrutura e função celular de microrganismos, métodos de cultivo e identificação, e a importância das 
-                interações microbianas na saúde humana e ambiental.
-            </p>
+            <p>{{ material.conteudo }}</p>
         </div>
 
         <div class="content-section">
             <h3>Questionário</h3>
             <p>Após estudar o conteúdo, você pode testar seus conhecimentos clicando no botão abaixo.</p>
-            <a href="/questionario/" class="btn btn-questionnaire">Fazer Questionário</a>
+            <a href="/questionarios/" class="btn btn-questionnaire">Fazer Questionário</a>
         </div>
     </div>
 
@@ -117,5 +100,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

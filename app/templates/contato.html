@@ -69,9 +69,7 @@
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-dark" href="/usuario/">Usuário</a>
-                </li>
+            
                 <li class="nav-item">
                     <a class="nav-link text-dark" href="/contato/">Contato</a>
                 </li>
@@ -88,45 +86,25 @@
 
     <div class="container mt-5">
         <h2 class="mb-4">Entre em Contato</h2>
-        <form id="contatoForm">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form id="contatoForm" method="post" action="{% url 'contato' %}">
+            {% csrf_token %}
             <div class="form-group">
-                <label for="nome">Seu Nome:</label>
-                <input type="text" class="form-control" id="nome" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Seu E-mail:</label>
-                <input type="email" class="form-control" id="email" required>
+                <label for="email">E-mail:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">
                 <label for="mensagem">Mensagem:</label>
-                <textarea class="form-control" id="mensagem" rows="5" required></textarea>
+                <textarea class="form-control" id="mensagem" name="texto" rows="5" required></textarea>
             </div>
-            <button type="button" class="btn btn-success" onclick="enviarEmail()">Enviar Mensagem</button>
+            <button type="submit" class="btn btn-success">Enviar Mensagem</button>
         </form>
-
-        <div id="resultado" class="mt-4"></div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        function enviarEmail() {
-            const nome = document.getElementById('nome').value;
-            const email = document.getElementById('email').value;
-            const mensagem = document.getElementById('mensagem').value;
-
-            // Aqui você pode implementar a lógica para enviar o e-mail
-            // Para efeito de demonstração, apenas exibimos uma mensagem
-            document.getElementById('resultado').innerHTML = `<div class="alert alert-success" role="alert">
-                Mensagem enviada com sucesso! Obrigado, ${nome}.
-            </div>`;
-
-            // Limpar o formulário após o envio
-            document.getElementById('contatoForm').reset();
-        }
-    </script>
+    
 </body>
 
 </html>

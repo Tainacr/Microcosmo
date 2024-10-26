@@ -1,10 +1,13 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Material de Estudo</title>
+    {% if material2 %}
+        <title>{{ material2.titulo }}</title>
+    {% else %}
+        <title>Material Não Encontrado</title>
+    {% endif %}
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -48,13 +51,12 @@
             background-color: #2E7D32;
         }
 
-        p{
-                color:#2e7233;
-                font-weight: 500;
-            }
+        p {
+            color: #2e7233;
+            font-weight: 500;
+        }
     </style>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-success">
         <a class="navbar-brand" href="/">Microcosmo</a>
@@ -69,16 +71,11 @@
                     <a class="nav-link text-dark" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/usuario/">Usuário</a>
-                </li>
-                
-                <li class="nav-item">
                     <a class="nav-link text-dark" href="/contato/">Contato</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/cadastro/">Cadastro</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/login/">Login</a>
                 </li>
@@ -87,23 +84,24 @@
     </nav>
 
     <div class="container mt-5">
-        <h2 class="mb-4">Material: Estudo de Casos</h2>
+        {% if material2 %}
+            <h2 class="mb-4">{{ material2.titulo }}</h2>
 
-        <div class="content-section">
-            <h3>Conteúdo</h3>
-            <p>
-                Os surtos históricos de doenças infecciosas desempenharam um papel crucial na evolução da teoria microbiana da doença, que propõe que micro-organismos são os causadores de muitas enfermidades. Antes dessa teoria, prevaleciam crenças místicas ou ambientais sobre a origem das doenças. A descoberta de germes, impulsionada por cientistas como Louis Pasteur e Robert Koch no século XIX, revolucionou a medicina, oferecendo explicações científicas para epidemias devastadoras, como a peste bubônica, cólera e tuberculose. 
-            </p>
-            <p>
-                Esses surtos históricos, que causaram milhões de mortes ao longo dos séculos, ajudaram a estabelecer medidas de saúde pública essenciais, como saneamento e vacinas, que continuam a proteger a humanidade contra pandemias até hoje.
-            </p>
-        </div>
+            <div class="content-section">
+                <h3>Conteúdo</h3>
+                <p>{{ material2.conteudo }}</p>
+            </div>
 
-        <div class="content-section">
-            <h3>Questionário</h3>
-            <p>Após estudar o conteúdo, você pode testar seus conhecimentos clicando no botão abaixo.</p>
-            <a href="/questionario2/" class="btn btn-questionnaire">Fazer Questionário</a>
-        </div>
+            <div class="content-section">
+                <h3>Questionário</h3>
+                <p>Após estudar o conteúdo, você pode testar seus conhecimentos clicando no botão abaixo.</p>
+                <a href="/questionario2/" class="btn btn-questionnaire">Fazer Questionário</a>
+            </div>
+        {% else %}
+            <h2 class="text-danger">Material Não Encontrado</h2>
+            <p>Desculpe, o material que você está tentando acessar não existe.</p>
+            <a href="/" class="btn btn-primary">Voltar para a Home</a>
+        {% endif %}
     </div>
 
     <!-- Incluindo jQuery e Bootstrap JS -->
@@ -111,5 +109,4 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>

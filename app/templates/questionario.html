@@ -1,232 +1,74 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Questionário</title>
-
+    <title>{{ questionario.nome }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
     <style>
-
         body {
             background-color: #E8F5E9; 
             color: #2E7D32; 
-            font-family: 'Arial', sans-serif;
-        }
-
-         .navbar {
-            background-color: #1B5E20 !important; 
-        }
-
-
-        .navbar-brand {
-            font-weight: bold;
-            color: #E8F5E9; 
-        }
-
-        .navbar-nav .nav-link {
-            color: #E8F5E9 !important; 
-        }
-
-        h2 {
-            color: #1B5E20;
-            font-weight: bold;
         }
 
         .container {
-            background-color: #A5D6A7; 
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px;
         }
 
-        .form-group label {
-            font-weight: bold;
-            color: #445345;
+        .card {
+            background-color: white; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px; 
+            padding: 15px; 
         }
 
-        .btn-success {
-            background-color: #388E3C; 
-            border: none;
-        }
-
-        .btn-success:hover {
-            background-color: #2E7D32;
-        }
-
-        .result-box {
-            background-color: #E8F5E9; 
-            border-radius: 5px;
-            padding: 10px;
-            margin-top: 20px;
-            color: #2E7D32; 
-            font-weight: bold;
+        .card h4 {
+            font-weight: bold; 
+            margin-bottom: 10px; 
         }
 
         .form-group {
-            background-color: #b9e2ba; 
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px; 
         }
 
-       
+        .btn {
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
-
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
-        <a class="navbar-brand" href="/">Microcosmo</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link text" href="/">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text" href="/usuario/">Usuário</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link text" href="/contato/">Contato</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/cadastro/">Cadastro</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/login/">Login</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
     <div class="container mt-5">
-        <h2 class="mb-4">Questionário: Teoria Microbiana das Doenças</h2>
-
-        <form id="questionario">
-
-            <div class="form-group">
-                <label>1. Quem foi um dos principais cientistas responsáveis por desenvolver a teoria microbiana das doenças?</label>
-                <div>
-                    <input type="radio" id="pergunta1_opcao1" name="pergunta1" value="correto">
-                    <label for="pergunta1_opcao1">Louis Pasteur</label>
+        <h2>{{ questionario.nome }}</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% for pergunta in perguntas %}
+                <div class="card">
+                    <h4>{{ pergunta.texto }}</h4>
+                    <div class="form-group">
+                        <label for="pergunta_{{ pergunta.id }}">Escolha uma alternativa:</label>
+                        {% for alternativa in pergunta.alternativas.all %}
+                            <div>
+                                <input type="radio" id="pergunta_{{ pergunta.id }}_{{ alternativa.id }}" name="{{ pergunta.id }}" value="{{ alternativa.id }}" required>
+                                <label for="pergunta_{{ pergunta.id }}_{{ alternativa.id }}">{{ alternativa.texto }}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div>
-                    <input type="radio" id="pergunta1_opcao2" name="pergunta1" value="errado">
-                    <label for="pergunta1_opcao2">Isaac Newton</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta1_opcao3" name="pergunta1" value="errado">
-                    <label for="pergunta1_opcao3">Charles Darwin</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>2. Qual das opções abaixo NÃO é uma doença causada por um micro-organismo?</label>
-                <div>
-                    <input type="radio" id="pergunta2_opcao1" name="pergunta2" value="errado">
-                    <label for="pergunta2_opcao1">Gripe</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta2_opcao2" name="pergunta2" value="errado">
-                    <label for="pergunta2_opcao2">Tuberculose</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta2_opcao3" name="pergunta2" value="correto">
-                    <label for="pergunta2_opcao3">Diabetes</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>3. Quais medidas de saúde pública foram impulsionadas pela teoria microbiana das doenças?</label>
-                <div>
-                    <input type="checkbox" id="pergunta3_opcao1" name="pergunta3" value="correto">
-                    <label for="pergunta3_opcao1">Saneamento básico</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="pergunta3_opcao2" name="pergunta3" value="correto">
-                    <label for="pergunta3_opcao2">Vacinas</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="pergunta3_opcao3" name="pergunta3" value="errado">
-                    <label for="pergunta3_opcao3">Cirurgias estéticas</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>4. Qual dos seguintes cientistas criou uma vacina contra a raiva?</label>
-                <div>
-                    <input type="radio" id="pergunta4_opcao1" name="pergunta4" value="correto">
-                    <label for="pergunta4_opcao1">Louis Pasteur</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta4_opcao2" name="pergunta4" value="errado">
-                    <label for="pergunta4_opcao2">Robert Koch</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta4_opcao3" name="pergunta4" value="errado">
-                    <label for="pergunta4_opcao3">Edward Jenner</label>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>5. A teoria microbiana das doenças foi estabelecida no século:</label>
-                <div>
-                    <input type="radio" id="pergunta5_opcao1" name="pergunta5" value="correto">
-                    <label for="pergunta5_opcao1">XIX</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta5_opcao2" name="pergunta5" value="errado">
-                    <label for="pergunta5_opcao2">XVIII</label>
-                </div>
-                <div>
-                    <input type="radio" id="pergunta5_opcao3" name="pergunta5" value="errado">
-                    <label for="pergunta5_opcao3">XX</label>
-                </div>
-            </div>
-
-            <button type="button" class="btn btn-success" onclick="calcularAcertos()">Enviar Respostas</button>
+            {% endfor %}
+            <button type="submit" class="btn btn-success">Enviar</button>
         </form>
-
-        <div id="resultado" class="mt-4"></div>
     </div>
-
-    <div class="mt-4">
-        <a href="/material/" class="btn btn-secondary">Voltar para o curso</a>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        function calcularAcertos() {
-            let acertos = 0;
-
-
-            if (document.querySelector('input[name="pergunta1"]:checked')?.value === 'correto') acertos++;
-            if (document.querySelector('input[name="pergunta2"]:checked')?.value === 'correto') acertos++;
-            if (document.querySelector('input[name="pergunta4"]:checked')?.value === 'correto') acertos++;
-            if (document.querySelector('input[name="pergunta5"]:checked')?.value === 'correto') acertos++;
-
-
-            const pergunta3Respostas = document.querySelectorAll('input[name="pergunta3"]:checked');
-            if (pergunta3Respostas.length === 2 &&
-                Array.from(pergunta3Respostas).every(input => input.value === 'correto')) {
-                acertos++;
-            }
-
-            document.getElementById('resultado').innerHTML = `<h3>Você acertou ${acertos} de 5 perguntas!</h3>`;
-        }
-    </script>
-
 </body>
-
 </html>

@@ -48,10 +48,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>Cadastro</h1>
+        <h1>Cadastrar-se</h1>
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}  <!-- Renderiza o formulário automaticamente -->
+            {{ form.as_p }} 
             <button type="submit" class="btn">Cadastrar</button>
         </form>
         {% if messages %}
